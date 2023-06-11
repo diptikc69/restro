@@ -186,10 +186,21 @@
                     Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                {{-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
-                </a>
+                </a> --}}
+
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}" @click.prevent="$root.submit();">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
+                    {{-- <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link> --}}
+                </form>
             </div>
         </li>
 

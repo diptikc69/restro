@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Table;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 
 class TableController extends Controller
 {
@@ -13,8 +14,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        $tables = Table::all();
-        return view('admin.tables.index', compact('tables'));
+        $tables = Table::with('restaurant')->get();
+        return view('admin.table.index', compact('tables'));
     }
 
     /**
@@ -22,7 +23,8 @@ class TableController extends Controller
      */
     public function create()
     {
-        return view('admin.tables.create');
+        $restaurants = Restaurant::get();
+        return view('admin.table.create', compact('restaurants'));
     }
 
     /**
@@ -33,6 +35,7 @@ class TableController extends Controller
         //storae a new table with validated data from request according to model
         $validatedData = $request->validate([
             'table_number' => 'required|unique:tables|max:255',
+            'restaurant_id' => 'required'
         ]);
         $table = Table::create($validatedData);
 
@@ -49,7 +52,7 @@ class TableController extends Controller
         $table = Table::find($id);
 
         //return view with table
-        return view('admin.tables.update', compact('table'));
+        return view('admin.table.update', compact('table'));
     }
 
     /**
@@ -58,7 +61,8 @@ class TableController extends Controller
     public function edit(string $id)
     {
         $table = Table::find($id);
-        return view('admin.tables.update', compact('table'));
+        $restaurants = Restaurant::get();
+        return view('admin.table.update', compact('table', 'restaurants'));
     }
 
     /**
@@ -68,7 +72,8 @@ class TableController extends Controller
     {
         //update table with validated data from request according to model
         $validatedData = $request->validate([
-            'table_number' => 'required|unique:tables|max:255',
+            'table_number' => 'required|max:255',
+            'restaurant_id' => 'required'
         ]);
         Table::whereId($id)->update($validatedData);
 

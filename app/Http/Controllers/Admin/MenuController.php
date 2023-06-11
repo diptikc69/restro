@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Menu;
+use App\Models\Category;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -17,7 +20,7 @@ class MenuController extends Controller
         $menus = Menu::all();
 
         // Return view with menus
-        return view('admin.menus.index', compact('menus'));
+        return view('admin.menu.index', compact('menus'));
     }
 
     /**
@@ -25,8 +28,9 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //create a new menu
-        return view('admin.menus.create');
+        $categories = Category::all();
+        $restaurants = Restaurant::all();
+        return view('admin.menu.create', compact('categories', 'restaurants'));
     }
 
     /**
@@ -34,9 +38,25 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //store new menu
-        $menu = Menu::create($request->all());
-        return redirect()->back()->with('message', 'Menu Added Successfully');
+        $validatedData = $request->validate([
+            'name' => 'required|unique:menus|max:255',
+            'price' => 'required',
+            'category_id' => 'required',
+            'restaurant_id' => 'required',
+            'image' => 'required'
+        ]);
+
+        if (!$validatedData) {
+            return redirect()->back()->withErrors($validatedData->errors())->withInput();
+        }
+
+        $input = $request->all();
+        if ($request->file('image')) {
+            $image = Storage::disk('public')->put('/images', $request->image);
+            $input['image'] = $image;
+        }
+        $menu = Menu::create($input);
+        return redirect()->route('menus.index')->with('message', 'Menu Added Successfully');
     }
 
     /**
@@ -46,7 +66,7 @@ class MenuController extends Controller
     {
         //    show a menu
         $menu = Menu::find($id);
-        return view('admin.menus.update', compact('menu'));
+        return view('admin.menu.update', compact('menu'));
     }
 
     /**
@@ -56,7 +76,9 @@ class MenuController extends Controller
     {
         //edit a menu
         $menu = Menu::find($id);
-        return view('admin.menus.update', compact('menu'));
+        $categories = Category::all();
+        $restaurants = Restaurant::all();
+        return view('admin.menu.update', compact('menu', 'categories', 'restaurants'));
     }
 
     /**
@@ -66,8 +88,24 @@ class MenuController extends Controller
     {
         //update a menu
         $menu = Menu::find($id);
-        $menu->update($request->all());
-        return redirect()->back()->with('message', 'Menu Updated Successfully');
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required',
+            'category_id' => 'required',
+            'restaurant_id' => 'required',
+        ]);
+
+        if (!$validatedData) {
+            return redirect()->back()->withErrors($validatedData->errors())->withInput();
+        }
+
+        $input = $request->all();
+        if ($request->file('image')) {
+            $image = Storage::disk('public')->put('/images', $request->image);
+            $input['image'] = $image;
+        }
+        $menu->update($input);
+        return redirect()->route('menus.index')->with('message', 'Menu Updated Successfully');
     }
 
     /**

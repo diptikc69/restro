@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -30,8 +31,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category =  Category::create($request->all());
-        return redirect()->back()->with('message', 'Category Added Successfully');
+        $validatedData = $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
+
+        if (!$validatedData) {
+            return redirect()->back()->withErrors($validatedData->errors())->withInput();
+        }
+        $input = $request->all();
+        if ($request->file('image')) {
+            $image = Storage::disk('public')->put('/images', $request->image);
+            $input['image'] = $image;
+        }
+        $category =  Category::create($input);
+        return redirect()->route('categories.index')->with('message', 'Category Added Successfully');
     }
 
     /**
@@ -57,9 +70,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        if (!$validatedData) {
+            return redirect()->back()->withErrors($validatedData->errors())->withInput();
+        }
+        $input = $request->all();
+        if ($request->file('image')) {
+            $image = Storage::disk('public')->put('/images', $request->image);
+            $input['image'] = $image;
+        }
         $category = Category::find($id);
-        $category->update($request->all());
-        return redirect()->back()->with('message', 'Category Updated Successfully');
+        $category->update($input);
+        return redirect()->route('categories.index')->with('message', 'Category Updated Successfully');
     }
 
     /**

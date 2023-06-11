@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\RestaurantController;
-
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +38,5 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('restaurants', RestaurantController::class);
     Route::resource('menus', MenuController::class);
     Route::resource('tables', TableController::class);
+    Route::get('admin-logout', [UserController::class, 'logout'])->name('admin.logout');
 });

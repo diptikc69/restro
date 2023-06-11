@@ -28,7 +28,7 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
                     <input type="file" class="form-control" name="image" id="image">
-                    <img src="{{ $category->image ?? null }}" width="100px" height="100px" />
+                    <img src="{{ asset('storage/' . $category->image) ?? null }}" width="100px" height="100px" />
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

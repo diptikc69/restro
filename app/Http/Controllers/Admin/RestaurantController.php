@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
@@ -32,18 +33,22 @@ class RestaurantController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:restaurants|max:255',
-            'user_id' => 'required',
             'description' => 'required',
         ]);
 
-        if ($validatedData->fails()) {
+        if (!$validatedData) {
             return redirect()->back()->withErrors($validatedData->errors())->withInput();
         }
-        //store a new restaurant with validated data from request according to model
-        $restaurant = Restaurant::create($request->all());
+        $input = $request->all();
 
+        if ($request->file('image')) {
+            $image = Storage::disk('public')->put('/images', $request->image);
+            $input['image'] = $image;
+        }
+        //store a new restaurant with validated data from request according to model
+        $restaurant = Restaurant::create($input);
         //return to restaurants.index
-        return redirect()->route('restaurant.index')->with('message', 'Restaurant Added Successfully');
+        return redirect()->route('restaurants.index')->with('message', 'Restaurant Added Successfully');
     }
 
     /**
@@ -54,7 +59,7 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::find($id);
 
         //return view with restaurant
-        return view('admin.restaurant.update', compact('restaurant'));
+        return view('admin.restaurants.update', compact('restaurant'));
     }
 
     /**
@@ -77,16 +82,21 @@ class RestaurantController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|unique:restaurants|max:255',
             'description' => 'required',
-            'user_id' => 'required',
         ]);
 
-        if ($validatedData->fails()) {
+        if (!$validatedData) {
             return redirect()->back()->withErrors($validatedData->errors())->withInput();
         }
-        Restaurant::whereId($id)->update($validatedData);
+        $input = $request->all();
+        if ($request->file('image')) {
+            $image = Storage::disk('public')->put('/images', $request->image);
+            $input['image'] = $image;
+        }
+
+        Restaurant::whereId($id)->update($input);
 
         //return to restaurants.index
-        return redirect()->route('restaurant.index')->with('message', 'Restaurant Updated Successfully');
+        return redirect()->route('restaurants.index')->with('message', 'Restaurant Updated Successfully');
     }
 
     /**
@@ -98,6 +108,6 @@ class RestaurantController extends Controller
         $restaurant->delete();
 
         //return to restaurants.index
-        return redirect()->route('restaurant.index')->with('message', 'Restaurant Deleted Successfully');
+        return redirect()->route('restaurants.index')->with('message', 'Restaurant Deleted Successfully');
     }
 }

@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
     <div class="card">
+        @include('admin.alert')
         <div class="card-header">
             <h3>Add Category</h3>
         </div>
