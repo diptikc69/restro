@@ -59,7 +59,7 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::find($id);
 
         //return view with restaurant
-        return view('admin.restaurants.update', compact('restaurant'));
+        return view('admin.restaurant.update', compact('restaurant'));
     }
 
     /**
