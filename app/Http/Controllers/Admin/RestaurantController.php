@@ -80,7 +80,7 @@ class RestaurantController extends Controller
     {
         //update a restaurant with validation
         $validatedData = $request->validate([
-            'name' => 'required|unique:restaurants|max:255',
+            'name' => 'required|max:255',
             'description' => 'required',
         ]);
 
