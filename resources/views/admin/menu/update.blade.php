@@ -23,7 +23,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description*</label>
+                    <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" name="description" id="description" rows="3" placeholder="Leave a comment here">{{ $menu->description }}</textarea>
                     @error('description')
                         <small class="text-danger">{{ $message }}</small>

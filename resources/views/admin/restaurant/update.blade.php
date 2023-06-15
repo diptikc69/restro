@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3>Update Restaurant</h3>
+            <h3>Edit Restaurant</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('restaurants.update', $restaurant->id) }}" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description*</label>
+                    <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" name="description" id="description" rows="3" placeholder="Leave a comment here"
                         value="{{ $restaurant->description }}">{{ $restaurant->description }}</textarea>
                     @error('description')

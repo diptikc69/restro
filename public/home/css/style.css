@@ -1,4 +1,7 @@
 /********** Template CSS **********/
+#logincss{
+    margin-right: 10px;
+}
 :root {
     --primary: #FEA116;
     --light: #F1F8FF;

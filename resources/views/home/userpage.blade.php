@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Yummy Bootstrap Template - Index</title>
+    <title>Yummy</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -54,15 +54,15 @@
                     <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
                     <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea
                         consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
-                    <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                    <!--<div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                         <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
                         <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ"
                             class="glightbox btn-watch-video d-flex align-items-center"><i
                                 class="bi bi-play-circle"></i><span>Watch Video</span></a>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-                    <img src="assets/img/hero-img.png" class="img-fluid" alt="" data-aos="zoom-out"
+                    <img src="images/hero.png" class="img-fluid" alt="" data-aos="zoom-out"
                         data-aos-delay="300">
                 </div>
             </div>
@@ -82,7 +82,7 @@
 
                 <div class="row gy-4">
                     <div class="col-lg-7 position-relative about-img"
-                        style="background-image: url(assets/img/about.jpg) ;" data-aos="fade-up" data-aos-delay="150">
+                        style="background-image: url(images/about-1.jpg) ;" data-aos="fade-up" data-aos-delay="150">
                         <div class="call-us position-absolute">
                             <h4>Book a Table</h4>
                             <p>+1 5589 55488 55</p>
@@ -1165,7 +1165,7 @@
 
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
+                &copy; Copyright <strong><span>Restaurant</span></strong>. All Rights Reserved
             </div>
             <div class="credits">
                 <!-- All the links in the footer should remain intact. -->
