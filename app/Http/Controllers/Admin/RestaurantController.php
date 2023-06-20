@@ -87,7 +87,7 @@ class RestaurantController extends Controller
         if (!$validatedData) {
             return redirect()->back()->withErrors($validatedData->errors())->withInput();
         }
-        $input = $request->all();
+        $input = $request->except(['_token', '_method']);
         if ($request->file('image')) {
             $image = Storage::disk('public')->put('/images', $request->image);
             $input['image'] = $image;
