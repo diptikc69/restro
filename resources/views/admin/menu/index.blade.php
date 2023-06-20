@@ -25,7 +25,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
+                   <!-- <tfoot>
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
@@ -34,7 +34,7 @@
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
-                    </tfoot>
+                    </tfoot>-->
                     <tbody>
                         @foreach ($menus as $menu)
                             <tr>

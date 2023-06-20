@@ -23,14 +23,14 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
+                    <!--<tfoot>
                         <tr>
                             <th>Table No</th>
                             <th>Restaurant</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
-                    </tfoot>
+                    </tfoot>-->
                     <tbody>
                         {{-- tables get --}}
                         @foreach ($tables as $table)
