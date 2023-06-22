@@ -39,4 +39,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('menus', MenuController::class);
     Route::resource('tables', TableController::class);
     Route::get('admin-logout', [UserController::class, 'logout'])->name('admin.logout');
+    Route::get('profile', [UserController::class, 'getProfile'])->name('admin.profile');
+    Route::post('update-profile', [UserController::class, 'updateProfile'])->name('admin.update-profile');
 });
