@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="m-2">
-            <h3>Update Admin </h3>
+            <h3>My Profile </h3>
         </div>
 
         <div class="card-body">
@@ -16,7 +16,7 @@
             <form method="POST" action="{{ route('admin.update-profile') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    <label for="catName" class="form-label">Name</label>
+                    <label for="Name" class="form-label">Name</label>
                     <input type="text" name="name" class="form-control" id="catName" value="{{ $user->name }}">
                     @error('name')
                         <small class="text-danger">{{ $message }}</small>
@@ -24,7 +24,14 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="catName" class="form-label"> Password</label>
+                    <label for="Password" class="form-label"> Password</label>
+                    <input type="text" name="password" class="form-control" id="catName">
+                    @error('password')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="Confirm Password" class="form-label">Confirm Password</label>
                     <input type="text" name="password" class="form-control" id="catName">
                     @error('password')
                         <small class="text-danger">{{ $message }}</small>
@@ -32,7 +39,7 @@
                 </div>
 
                 {{-- <div class="mb-3">
-                    <label for="catName" class="form-label">Email</label>
+                    <label for="Email" class="form-label">Email</label>
                     <input type="number" name="email" class="form-control" id="catName" value="{{ $user->email }}">
                     @error('email')
                         <small class="text-danger">{{ $message }}</small>
